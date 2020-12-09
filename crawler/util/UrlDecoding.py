@@ -1,5 +1,4 @@
 from urllib import parse
-import pandas as pd
 import urllib
 
 def url_decoding(self, url):

@@ -1,2 +1,30 @@
+https://docs.google.com/presentation/d/1s2Q2W0NoF2cI9u1RODYBvDmEuuehGE4ywyz92SbSfHk/edit?usp=sharing
+
+
+1. spider 추가할때
 scrapy genspider KeywordAllproducts
+
+
+2. Run configuration 파라메터.
+
+PSRanking
+crawl PSRanking
+
+Keywordallproducts
+crawl KeywordAllproducts
+
+Competitors
+crawl CompetitorSales -a competitor=3boon1 -s FEED_URI=/Users/genesisjk/project_sleep/results/CompetitorSales/3boon1/3boon1.csv -s FEED_FORMAT=csv
+
+crawl CompetitorSales -a competitor=Brandless -s FEED_URI=/Users/genesisjk/project_sleep/results/CompetitorSales/Brandless/Brandless.csv -s FEED_FORMAT=csv
+
+crawl CompetitorSales -a competitor=Lanube -s FEED_URI=/Users/genesisjk/project_sleep/results/CompetitorSales/Lanube/Lanube.csv -s FEED_FORMAT=csv
+
+crawl CompetitorSales -a competitor=ProjectSleep -s FEED_URI=/Users/genesisjk/project_sleep/results/CompetitorSales/ProjectSleep/ProjectSleep.csv -s FEED_FORMAT=csv
+
+crawl CompetitorSales -a competitor=Sleep-gonggam -s FEED_URI=/Users/genesisjk/project_sleep/results/CompetitorSales/Sleep-gonggam/Sleep-gonggam.csv -s FEED_FORMAT=csv
+
+crawl CompetitorSales -a competitor=Slou -s FEED_URI=/Users/genesisjk/project_sleep/results/CompetitorSales/Slou/Slou.csv -s FEED_FORMAT=csv
+
+crawl CompetitorSales -a competitor=Zinus -s FEED_URI=/Users/genesisjk/project_sleep/results/CompetitorSales/Zinus/Zinus.csv -s FEED_FORMAT=csv
 

@@ -6,13 +6,13 @@
 import scrapy
 
 class CompetitorSalesItem(scrapy.Item):
-    PRODUCT_name = scrapy.Field()
+    PRODUCT_name = scrapy.Field()       #data넣는 순서 때문에 대/소문자를 일부러 섞어서씀.
     Price = scrapy.Field()
     buying_cnt = scrapy.Field()
 
 class KeywordallproductsItem(scrapy.Item):
     Keyword = scrapy.Field()
-    product_name = scrapy.Field()
+    Product_name = scrapy.Field()
     price = scrapy.Field()
     buying_cnt = scrapy.Field()
 

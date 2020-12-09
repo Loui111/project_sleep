@@ -6,6 +6,8 @@ import configparser
 from crawler.items import PSRankingItem
 from urllib import parse
 from crawler.util.UrlDecoding import url_decoding
+from crawler.util.getPSRankingKeywords import getPSRankingKeywords
+from crawler.util.StrToInt import StrToInt
 
 class PsrankingSpider(scrapy.Spider):
     name = 'PSRanking'
@@ -25,34 +27,24 @@ class PsrankingSpider(scrapy.Spider):
     }
 
     def __init__(self, *args, **kargs):
-
         config = configparser.ConfigParser()
         config.read('config.ini', encoding='utf-8')
         domain_url = config['DEFAULT']['DOMAIN']
         path = config['DEFAULT']['ROOT_PATH']
         self.company = config['DEFAULT']['COMPANY']
 
-        xlsx_data = pd.read_excel(path+'/scraping_data2.xlsx', sheet_name='1.rank')
-
-        keyword_list = []
-
-        for word in xlsx_data.values:
-            if pd.notna(word[3]):
-                temp = word[3]
-                keyword_list.append(temp)
-
-        keyword_list.remove('키워드')
+        keywords_list = getPSRankingKeywords(self)
         self.start_urls = []
 
         pages = [ 1 ]
-        #
+
         # keyword_list1 = ['토퍼매트리스',
         #                  '접이식매트리스',
         #                  '싱글매트리스',
         #                  '바닥매트리스',
         #                  '매트리스싱글',]
 
-        for keyword in keyword_list:
+        for keyword in keywords_list:
             keyword = urllib.parse.quote(keyword)       #encoding 처리
             for page in pages:
                 self.start_urls.append(
@@ -81,7 +73,7 @@ class PsrankingSpider(scrapy.Spider):
             if not commercial:   #광고가 아니면 None
                 if product_name.find(self.company) != -1:
                     print(product_name, str(cnt))
-                    ps_list.append(product_name+":: "+str(cnt))
+                    ps_list.append(product_name+":: "+str(cnt)+"th")
                 cnt=cnt+1
             else:       # 광고인경우
                 continue    #광고는 cnt++ 안함.
@@ -94,8 +86,10 @@ class PsrankingSpider(scrapy.Spider):
 
         decoded = url_decoding(self, response.url)
 
+        intTotal = StrToInt(self, total)
+
         item['Keyword'] = decoded
-        item['Total'] = total.strip() if total else total
+        item['Total'] = intTotal
         item['psRank'] = ps_list
 
         yield item
